@@ -1,7 +1,7 @@
 PROJECT(fuse-lwext4)
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
-set(CMAKE_MODULE_PATH "./cmake")
+list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 
 # Required software packages for this FUSE filesystem
 FIND_PACKAGE(PkgConfig REQUIRED)
