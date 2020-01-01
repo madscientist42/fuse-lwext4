@@ -1,0 +1,47 @@
+
+# This module defines
+# LWEXT4_LIBRARY, the name of the library to link against
+# LWEXT4_FOUND, if false, do not try to link to LWEXT4
+# LWEXT4_INCLUDE_DIR, where to find SDL.h
+#
+# $LWEXT4DIR is an environment variable that would
+# correspond to the ./configure --prefix=$LWEXT4DIR
+# used in building LWEXT4.
+
+SET(LWEXT4_SEARCH_PATHS
+	/usr/local
+  /usr
+  /
+	${LWEXT4_PATH}
+)
+
+FIND_PATH(LWEXT4_INCLUDE_DIR 
+  NAMES ext4.h
+	HINTS	$ENV{LWEXT4DIR}
+  PATH_SUFFIXES include/lwext4
+  PATHS ${LWEXT4_SEARCH_PATHS}
+)
+
+FIND_LIBRARY(LWEXT4_LIBRARY_TEMP
+	NAMES lwext4
+	HINTS $ENV{LWEXT4DIR}
+	PATH_SUFFIXES lib64 lib
+	PATHS ${LWEXT4_SEARCH_PATHS}
+)
+
+IF(LWEXT4_LIBRARY_TEMP)
+	# For LWEXT4main
+	IF(NOT LWEXT4_BUILDING_LIBRARY)
+		IF(LWEXT4MAIN_LIBRARY)
+			SET(LWEXT4_LIBRARY_TEMP ${LWEXT4MAIN_LIBRARY} ${LWEXT4_LIBRARY_TEMP})
+		ENDIF(LWEXT4MAIN_LIBRARY)
+	ENDIF(NOT LWEXT4_BUILDING_LIBRARY)
+
+	# Set the final string here so the GUI reflects the final state.
+	SET(LWEXT4_LIBRARY ${LWEXT4_LIBRARY_TEMP} CACHE STRING "Where the LWEXT4 Library can be found")
+	# Set the temp variable to INTERNAL so it is not seen in the CMake GUI
+	SET(LWEXT4_LIBRARY_TEMP "${LWEXT4_LIBRARY_TEMP}" CACHE INTERNAL "")
+ENDIF(LWEXT4_LIBRARY_TEMP)
+
+INCLUDE(FindPackageHandleStandardArgs)
+FIND_PACKAGE_HANDLE_STANDARD_ARGS(LWEXT4 REQUIRED_VARS LWEXT4_LIBRARY LWEXT4_INCLUDE_DIR)

@@ -1,4 +1,0 @@
-[submodule "lwext4"]
-	path = lwext4
-	url = https://github.com/ngkaho1234/lwext4
-	ignore = all

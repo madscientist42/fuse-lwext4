@@ -3,5 +3,9 @@ ext4fsr.raw
 fuse-lwext4
 *.o
 .*.swp
-/test/logs
-lwext4/build_generic/
+test/logs
+.vscode/settings.json
+CMakeCache.txt
+CMakeFiles
+Makefile
+install_manifest.txt
